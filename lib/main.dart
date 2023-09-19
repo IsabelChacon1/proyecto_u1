@@ -8,10 +8,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Peliculas', initialRoute: 'home', routes: {
-      'home': (_) => HomeScreen(),
-      'details': (_) => DetailsScreen(),
-    } //establece las rutas
+    return MaterialApp(
+        debugShowCheckedModeBanner: false, //para quitar la parte que dice debug
+        title: 'Peliculas',
+        initialRoute: 'home',
+        routes: {
+          'home': (_) => HomeScreen(),
+          'details': (_) => DetailsScreen(),
+        } //establece las rutas
         );
   }
 }
