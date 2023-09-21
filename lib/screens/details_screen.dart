@@ -17,8 +17,8 @@ class DetailsScreen extends StatelessWidget {
         SliverList(
             delegate: SliverChildListDelegate.fixed([
           _PosterAndTitle(),
-          _PosterAndTitle(),
-          _PosterAndTitle(),
+          _Overview(),
+          _Casting(),
         ]))
       ],
     ));
@@ -121,6 +121,108 @@ class _PosterAndTitle extends StatelessWidget {
             ],
           ),
         )
+      ]),
+    );
+  }
+}
+
+class _Overview extends StatelessWidget {
+  const _Overview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: const Text(
+        'Officia aliqua cupidatat Lorem est ea adipisicing deserunt. Pariatur nostrud sit quis ex tempor fugiat cupidatat consectetur laboris est anim veniam laboris occaecat. Amet eiusmod fugiat excepteur amet sunt et reprehenderit ut amet magna adipisicing consequat exercitation ex. Duis aliquip cupidatat magna nulla quis labore ullamco id ad. Incididunt ex excepteur nisi laborum amet enim. Est ex aliqua consectetur enim esse. Irure deserunt mollit duis anim ad ad laborum esse fugiat enim veniam fugiat deserunt eiusmod.Cillum consequat dolor id commodo consectetur. Incididunt voluptate esse tempor mollit anim et duis. Eiusmod laborum labore laboris ad reprehenderit. Qui do quis fugiat deserunt magna. Esse irure fugiat eiusmod cupidatat amet tempor eiusmod irure. Labore magna cillum in cupidatat ipsum labore minim pariatur aliquip laboris occaecat nisi.Consectetur laborum proident esse do elit irure ea irure deserunt. Elit exercitation ipsum velit laborum consequat duis enim quis. Ipsum ad ipsum quis culpa culpa elit qui.Non et est officia est irure deserunt ullamco Lorem amet. Minim nostrud adipisicing ut velit dolor sit consequat et fugiat id aute mollit. Excepteur esse non excepteur reprehenderit cupidatat nulla labore ipsum duis nisi nulla consequat enim.',
+        textAlign: TextAlign.justify,
+        style: TextStyle(fontSize: 15),
+      ),
+    );
+  }
+}
+
+class _Casting extends StatelessWidget {
+  const _Casting({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size; //Variable para el tamaño
+    return Container(
+      width: double.infinity,
+      height: size.height * 0.35,
+      color: Colors.indigo,
+      child: Column(
+        //una columna
+        crossAxisAlignment: CrossAxisAlignment.start, //alineacion
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(
+                //Es para tener una separacion en ambos lados del mismo tamaño (horizontal y vertical)
+                horizontal: 20,
+                vertical: 10),
+            child: Text(
+              //Título de la seccion
+              'Casting: ',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold, //en negritas
+                  color: Colors.white),
+            ),
+          ),
+          Expanded(
+              child: ListView.builder(
+            scrollDirection: Axis.horizontal, //para moverlo a los lados
+            itemCount: 20, //que solo se vean 20
+            itemBuilder: (_, int index) =>
+                const _CastPoster(), //se llama a la lista/contenedor de la foto y nombre
+          ))
+        ],
+      ),
+    );
+  }
+}
+
+class _CastPoster extends StatelessWidget {
+  //el "_" en el nombre sirve para hacerlo privado
+  const _CastPoster({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //Contenedor en el que va la foto y el nombre
+      width: 130,
+      height: 250,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(children: [
+        GestureDetector(
+            //Para que detecte lo que pasa con la imagen
+            // onTap: () => Navigator.pushNamed(context, 'details',
+            //     arguments:
+            //         ''), //El evento, en este caso hace que se muestre otra pantalla
+            child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: const FadeInImage(
+            placeholder: AssetImage('assets/no-image.jpg'),
+            image: AssetImage(
+                'assets/no-image.jpg'), //aqui va la foto del actor/actriz
+            width: 130,
+            height: 150,
+          ),
+        )),
+        const SizedBox(
+          //cajita para el nombre del actor
+          height: 5,
+        ),
+        const Text(
+          'Nombre del actor o actriz',
+          maxLines: 2,
+          overflow:
+              TextOverflow.ellipsis, //Para que no salga que es mucho texto
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
       ]),
     );
   }
