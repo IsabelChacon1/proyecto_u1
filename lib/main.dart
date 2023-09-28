@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:proyecto_unidad_1/providers/movies_provider.dart';
 import 'package:proyecto_unidad_1/screens/screens.dart';
 
 void main() => runApp(const MyApp());
