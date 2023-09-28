@@ -21,5 +21,6 @@ class MoviesProvider extends ChangeNotifier {
     final response = await http.get(url);
     final Map<String, dynamic> decodeData = json.decode(response.body);
     print(decodeData);
+    print(response.body);
   }
 }
