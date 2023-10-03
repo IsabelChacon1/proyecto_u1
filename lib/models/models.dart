@@ -1,0 +1,3 @@
+export 'package:proyecto_unidad_1/models/movie.dart';
+export 'package:proyecto_unidad_1/models/now_playing_response.dart';
+export 'dart:convert';
