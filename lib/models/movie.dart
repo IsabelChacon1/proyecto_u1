@@ -33,6 +33,14 @@ class Movie {
     required this.voteCount,
   });
 
+  get fullPosterImg {
+    if (this.posterPath != null) {
+      return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
+    }
+    //return 'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg';
+    return 'http://i.stack.imgur.com/GNhxO.png';
+  }
+
   factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
 
   // String toRawJson() => json.encode(toJson());
