@@ -1,7 +1,10 @@
 import "package:flutter/material.dart";
+import "package:proyecto_unidad_1/models/models.dart";
 
 class MovieSlider extends StatelessWidget {
-  const MovieSlider({super.key});
+  final List<Movie> movies; //Lista de peliculas
+  final String? title; //el titulo es opcional
+  MovieSlider({super.key, required this.movies, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +32,9 @@ class MovieSlider extends StatelessWidget {
           Expanded(
               child: ListView.builder(
             scrollDirection: Axis.horizontal, //para moverlo a los lados
-            itemCount: 20, //que solo sean 20
-            itemBuilder: (_, int index) => const _MoviePoster(),
+            itemCount:
+                movies.length, //Que aparezcan todas las pelis de la lista
+            itemBuilder: (_, int index) => _MoviePoster(movie: movies[index]),
           ))
         ],
       ),
@@ -40,7 +44,9 @@ class MovieSlider extends StatelessWidget {
 
 class _MoviePoster extends StatelessWidget {
   //el "_" en el nombre sirve para hacerlo privado
-  const _MoviePoster({super.key});
+
+  final Movie movie;
+  _MoviePoster({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +62,9 @@ class _MoviePoster extends StatelessWidget {
                     ''), //El evento, en este caso hace que se muestre otra pantalla
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: const FadeInImage(
+              child: FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'),
-                image: AssetImage('assets/no-image.jpg'),
+                image: NetworkImage(movie.fullPosterImg),
                 width: 130,
                 height: 150,
               ),
@@ -66,8 +72,12 @@ class _MoviePoster extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        const Text(
-          'Aliqua quien sabe que mas decía pero era mucho texto y así',
+        Text(
+          movie.title,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold, //en negritas
+          ),
           maxLines: 3,
           overflow:
               TextOverflow.ellipsis, //Para que no salga que es mucho texto
