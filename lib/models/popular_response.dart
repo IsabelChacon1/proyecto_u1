@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:proyecto_unidad_1/models/models.dart';
 
 class PopularResponse {

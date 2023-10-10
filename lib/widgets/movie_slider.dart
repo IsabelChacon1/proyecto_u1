@@ -59,7 +59,7 @@ class _MoviePoster extends StatelessWidget {
             //Para que detecte lo que pasa con la imagen
             onTap: () => Navigator.pushNamed(context, 'details',
                 arguments:
-                    ''), //El evento, en este caso hace que se muestre otra pantalla
+                    movie), //El evento, en este caso hace que se muestre otra pantalla
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(

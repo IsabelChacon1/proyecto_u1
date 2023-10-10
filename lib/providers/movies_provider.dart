@@ -18,6 +18,7 @@ class MoviesProvider extends ChangeNotifier {
     getPopularMovies();
   }
   getOnDisplayMovies() async {
+    //aquí se llena la lista de las peliculas
     var url = Uri.https(_baseUrl, '3/movie/now_playing', {
       'api_key': _apiKey,
       'language': _language,
@@ -29,10 +30,10 @@ class MoviesProvider extends ChangeNotifier {
     //print(decodeData);
     //print(response.body);
     final nowPlayingResponse = NowPlayingResponse.fromRawJson(response
-        .body); //Creación de una variable que aprende la respuesta de la petición
+        .body); //Creación de una variable que aprende la respuesta de la petición (instancia)
     onDisplayMovies = nowPlayingResponse.results;
     //le notificamos a los widgets que estan escuchando que se cambió la data por lo tanto se tiene que redibujar
-    notifyListeners();
+    notifyListeners(); //Actualiza todo
     //  print(nowPlayingResponse.results[0].title); //
   }
 
