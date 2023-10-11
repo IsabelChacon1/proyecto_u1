@@ -26,7 +26,7 @@ class CardSwiper extends StatelessWidget {
               //print(movie.fullPosterImg); //la imagen?
               return GestureDetector(
                 onTap: () => Navigator.pushNamed(context, 'details',
-                    arguments: movie), //hay que pasar id de la pelicula
+                    arguments: movie), //hay que pasar los datos de la pelicula
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: FadeInImage(
