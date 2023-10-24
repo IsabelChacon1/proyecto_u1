@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:proyecto_unidad_1/models/credits_response.dart';
 import 'package:proyecto_unidad_1/models/models.dart';
-import 'package:proyecto_unidad_1/models/now_playing_response.dart';
-import 'package:proyecto_unidad_1/models/popular_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
   String _baseUrl = 'api.themoviedb.org';
@@ -12,11 +10,14 @@ class MoviesProvider extends ChangeNotifier {
 
   List<Movie> onDisplayMovies = []; //Lista con las películas
   List<Movie> popularMovies = [];
+  Map<int, List<Cast>> movieCast = {};
 
   MoviesProvider() {
     getOnDisplayMovies();
     getPopularMovies();
+    //getMoviesCast();
   }
+
   getOnDisplayMovies() async {
     //aquí se llena la lista de las peliculas
     var url = Uri.https(_baseUrl, '3/movie/now_playing', {
@@ -51,5 +52,21 @@ class MoviesProvider extends ChangeNotifier {
     //Destructurar resultado para cambiar página y mantener los datos actuales
     popularMovies = [...popularMovies, ...popularResponse.results];
     notifyListeners();
+  }
+
+  Future<List<Cast>> getMoviesCast(int movieId) async {
+    if (movieCast.containsKey(movieId))
+      return movieCast[movieId]!; //si ya esta guardado no hace todo el proceso
+
+    var url = Uri.https(_baseUrl, '3/movie/$movieId/credits',
+        {'api_key': _apiKey, 'language': _language, 'page': '1'});
+    final response = await http.get(url);
+    final credit_response = CreditResponse.fromJson(jsonDecode(response.body));
+
+    movieCast[movieId] = credit_response
+        .cast; //guardamos el resultado de la variable para optimizar
+
+    //Variable: espacio guardado en memoria que puede estar sujeto a restricciones de tipo
+    return credit_response.cast;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_unidad_1/models/models.dart';
+import 'package:proyecto_unidad_1/widgets/casting_cards.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -22,7 +23,7 @@ class DetailsScreen extends StatelessWidget {
           _Overview(
             movie: movie,
           ),
-          _Casting(),
+          Casting(movieId: movie.id),
         ]))
       ],
     ));
@@ -149,8 +150,10 @@ class _Overview extends StatelessWidget {
   }
 }
 
+//se va a hacer en otra parte
 class _Casting extends StatelessWidget {
-  const _Casting({super.key});
+  final int movieId;
+  const _Casting({super.key, required this.movieId});
 
   @override
   Widget build(BuildContext context) {
